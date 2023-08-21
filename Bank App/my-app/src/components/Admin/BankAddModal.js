@@ -4,6 +4,8 @@ import { addBankAdmin } from '../Utils/Admin';
 
 const BankAddModal = ({ setAddbankmodalstatus ,updateBank}) => {
 
+  
+
     const [bankname,setBankname] = useState()
     const [bankabbr,setBankabbr] = useState()
 

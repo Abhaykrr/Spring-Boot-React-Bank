@@ -4,11 +4,12 @@ import Pagination from './Pagination'
 const ViewAccounts = ({SetViewAccountsModalStatus ,specificAccounts ,specificName}) => {
 
     let specificAccountTableData
+    let index = 0
     if(specificAccounts.length>0){
         specificAccountTableData = specificAccounts.map((acc)=>{
             return (
                 <tr>
-                <th scope="row">1</th>
+                <th scope="row">{++index}</th>
                 <td>{acc.accountno}</td>
                 <td>{acc.balance}</td>
                 </tr>

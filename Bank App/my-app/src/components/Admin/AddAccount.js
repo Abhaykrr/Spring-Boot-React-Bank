@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { dropDownBankDataAdmin, dropDownCustomerDataAdmin } from '../Utils/Admin'
+import { addAccountAdmin, dropDownBankDataAdmin, dropDownCustomerDataAdmin } from '../Utils/Admin'
 
 const AddAccount = ({setAddaccountmodalstatus , getAllAccounts}) => {
 
@@ -13,19 +13,28 @@ const AddAccount = ({setAddaccountmodalstatus , getAllAccounts}) => {
     const [balance,setBalance] = useState(0)
 
     const addAccountBackend = async(e) =>{
-        e.preventDefault()
+        e.preventDefault() 
 
         console.log(bankabbrv)
         console.log(customerId)
         console.log(balance)
-        let response = await axios.post(`http://localhost:8080/bank/customer/addcustomerbankaccount/${customerId}/${bankabbrv}/${balance}`,{},{
-            headers: {
-                Authorization: `Bearer ${token}`}
-        })
+
+        try {
+            let response = await addAccountAdmin(customerId,bankabbrv,balance)
+            alert("Bank Account Added")
+        } catch (error) {
+            alert(error.message)
+        }
+
+
+        // let response = await axios.post(`http://localhost:8080/bank/customer/addcustomerbankaccount/${customerId}/${bankabbrv}/${balance}`,{},{
+        //     headers: {
+        //         Authorization: `Bearer ${token}`}
+        // })
 
         getAllAccounts()
         setAddaccountmodalstatus(false)
-        alert("Bank Account Added")
+        
     }
 
 

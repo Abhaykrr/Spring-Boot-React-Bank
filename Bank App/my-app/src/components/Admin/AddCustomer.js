@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { addNewCustomer } from '../Utils/Admin'
 
 const AddCustomer = ({setAddcustomermodalstatus,getAllCustomers}) => {
 
@@ -13,17 +14,23 @@ const AddCustomer = ({setAddcustomermodalstatus,getAllCustomers}) => {
     const addUserBackend = async (e)=>{
         e.preventDefault()
 
-        let response = await axios.post('http://localhost:8080/api/auth/register',{
-            username,
-            password,
-            customer:{
-                firstname,
-                lastname
-            }
-        },{  headers: {
-            Authorization: `Bearer ${token}`}
-        })
-        alert('Customer Added')
+        try {
+          let response = await addNewCustomer(username,password,firstname,lastname)
+          alert('Customer Added')
+        } catch (error) {
+          alert(error.message)
+        }
+
+        // let response = await axios.post('http://localhost:8080/api/auth/register',{
+        //     username,
+        //     password,
+        //     customer:{
+        //         firstname,
+        //         lastname
+        //     }
+        // },{  headers: {
+        //     Authorization: `Bearer ${token}`}
+        // })
         getAllCustomers()
         setAddcustomermodalstatus(false)
     }

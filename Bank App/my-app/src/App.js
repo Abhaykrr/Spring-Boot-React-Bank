@@ -18,20 +18,21 @@ function App() {
   return (
     <>
        <Routes>
-        <Route path='/' element={<NewForm/>}/>
-        <Route path='/customer' element={<Customer/>}/>
-        <Route path='/accounts' element={<Accounts/>}/>
-        <Route path='/bank' element={<Bank/>}/>
-        <Route path='/userdashboard/:email' element={<UserDashboard></UserDashboard>}/>
-        <Route path='/admindashboard/:email' element={<AdminDashboard/>}/>
+        
+        <Route path='/customer'element={<Guard Component ={Customer} role={'ROLE_ADMIN'}/>}/>
+        <Route path='/accounts' element={<Guard Component ={Accounts} role={'ROLE_ADMIN'}/>}/>
+        <Route path='/bank' element={<Guard Component ={Bank} role={'ROLE_ADMIN'}/>}/>
+       
+        <Route path='/admindashboard/:email' element={<Guard Component ={AdminDashboard} role={'ROLE_ADMIN'}/>}/>
 
 
         <Route path='/notfound' element={<Notfound/>}/>
+        <Route path='/' element={<NewForm/>}/>
 
+        <Route path='/userdashboard/:email' element={<Guard Component ={UserDashboard} role={'ROLE_USER'}/>}/>
         <Route path='/myaccounts' element={<Guard Component ={MyAccounts} role={'ROLE_USER'}/>}/>
-
-        <Route path='/payment' element={<Payment/>}/>
-        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/payment' element={<Guard Component ={Payment} role={'ROLE_USER'}/>}/>
+        <Route path='/profile' element={<Guard Component ={Profile} role={'ROLE_USER'}/>}/>
         
        </Routes>
      </>

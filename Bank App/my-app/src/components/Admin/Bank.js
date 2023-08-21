@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import "../SharedComponents/css/common.css"
 import "../SharedComponents/css/modal.css"
@@ -14,6 +14,8 @@ const Bank = () => {
 
   const token = localStorage.getItem("auth")
   const dbUsername = localStorage.getItem('username')
+
+  const myElementRef = useRef(null);
 
 
   const [allbanks,setAllbanks] = useState({})
@@ -39,6 +41,7 @@ const Bank = () => {
       let res = await allBanks()
       setPages(Math.floor(res.data.length/pagesize))
     } catch (error) {
+      console.log('In Bank.js allBanks()')
       alert(error.message,'In Bank.js allBanks()')
     }
 
@@ -46,6 +49,7 @@ const Bank = () => {
         let response = await allBanksPageWise(currpage,pagesize)
         setAllbanks(response.data.content)
     } catch (error) {
+      console.log('In Bank.js allBanksPageWise')
       alert(error.message,'In Bank.js allBanksPageWise')
     }
 
@@ -65,7 +69,7 @@ const Bank = () => {
     try {
       let response = await deleteBankById(bankid)
     } catch (error) {
-      alert(error.message)
+      alert(error.message,'In Bank.js')
     }
 
     getAllBanks()
@@ -114,7 +118,7 @@ const Bank = () => {
   return (<>
   <Navbar role={'Admin'} username={dbUsername}/>  
       <div className="container1 App">
-        <h3>Trusted Banks</h3>
+        <h3>Trusted Banks</h3> 
   
   {viewAccountsModalStatus && <ViewAccounts specificName={specificName} SetViewAccountsModalStatus={SetViewAccountsModalStatus} specificAccounts={specificAccounts}/>}
 
@@ -132,7 +136,7 @@ const Bank = () => {
    />}
 
 
-        <div className="tab-content">
+        <div className={`tab-content ${addbankmodalstatus || viewAccountsModalStatus || updatebankmodalstatus  ? 'blurred' : ''}`} >
 
         <table className="table  table-bordered  table-striped">
   <thead>

@@ -93,7 +93,7 @@ const Accounts = () => {
         {passbookmodalstatus && <Passbook setPassbookmodalstatus={setPassbookmodalstatus} passbookaccountno={passbookaccountno} passbookaccountbalance={passbookaccountbalance}/>}
 
             {addaccountmodalstatus && <AddAccount setAddaccountmodalstatus={setAddaccountmodalstatus} getAllAccounts={getAllAccounts}/>}
-            <div className="tab-content">
+            <div className={`tab-content ${passbookmodalstatus || addaccountmodalstatus   ? 'blurred' : ''}`}>
             <table className="table  table-bordered  table-striped">
                 <thead>
                   <tr>

@@ -4,6 +4,7 @@ import "../SharedComponents/css/common.css"
 import "../SharedComponents/css/modal.css"
 import "../SharedComponents/css/form.css"
 import Navbar from '../SharedComponents/Navbar';
+import { updateUserDetailsCustomer, userDetailsCustomer } from '../Utils/Customer';
 
 const Profile = () => {
 
@@ -21,31 +22,48 @@ const Profile = () => {
         console.log(lastname)
         console.log(password)
 
-        let res = await axios.post(`http://localhost:8080/bank/user/update/${customerID}`,{
-            password,
-            customer:{
-                firstname,
-                lastname
-            }
-        },{
-            headers: { Authorization: `Bearer ${token}`}
-        })
+        try {
+            let res = await updateUserDetailsCustomer(customerID,password,firstname,lastname)
+            alert(res.data)
+            console.log(res.data)
+        } catch (error) {
+            alert(error.message)
+        }
 
-        alert(res.data)
-        console.log(res.data)
+        // let res = await axios.post(`http://localhost:8080/bank/user/update/${customerID}`,{
+        //     password,
+        //     customer:{
+        //         firstname,
+        //         lastname
+        //     }
+        // },{
+        //     headers: { Authorization: `Bearer ${token}`}
+        // })
+
+        getUserDetails()
 
     }
 
 
     const getUserDetails = async() =>{
         console.log(token)
-        let res = await axios.get(`http://localhost:8080/bank/user/${customerID}`,{
-            headers: { Authorization: `Bearer ${token}`}
-        })
 
-        console.log(res)
-        setFisrtname(res.data.customer.firstname)
-        setLastname(res.data.customer.lastname)
+        try {
+            let res = await userDetailsCustomer(customerID)
+            console.log(res)
+            setFisrtname(res.data.customer.firstname)
+            setLastname(res.data.customer.lastname)
+        } catch (error) {
+            alert(error.message)
+        }
+
+        
+        // let res = await axios.get(`http://localhost:8080/bank/user/${customerID}`,{
+        //     headers: { Authorization: `Bearer ${token}`}
+        // })
+
+        
+       
     }
 
     useEffect(()=>{

@@ -180,3 +180,38 @@ export const deleteCustomerAdmin = async(customerId)=>{
         throw error
     }
 }
+
+export const addAccountAdmin = async(customerId,bankabbrv,balance)=>{
+
+    try {
+        let response = await axios.post(`http://localhost:8080/bank/customer/addcustomerbankaccount/${customerId}/${bankabbrv}/${balance}`,{},{
+            headers: {
+                Authorization: `Bearer ${token}`}
+        })
+
+        return response
+    } catch (error) {
+        throw error
+    }
+
+    
+}
+
+export const addNewCustomer = async(username,password,firstname,lastname)=>{
+    try {
+        let response = await axios.post('http://localhost:8080/api/auth/register',{
+            username,
+            password,
+            customer:{
+                firstname,
+                lastname
+            }
+        },{  headers: {
+            Authorization: `Bearer ${token}`}
+        })
+
+        return response
+    } catch (error) {
+        throw error
+    }
+}

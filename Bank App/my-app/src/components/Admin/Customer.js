@@ -106,7 +106,7 @@ const Customer = () => {
         <h3>Customers</h3>
         {viewAccountsModalStatus && <ViewAccounts specificName={specificName} SetViewAccountsModalStatus={SetViewAccountsModalStatus} specificAccounts={specificAccounts}/>}
         {addcustomermodalstatus && <AddCustomer setAddcustomermodalstatus={setAddcustomermodalstatus}  getAllCustomers={getAllCustomers}/>}
-         <div className="tab-content">
+         <div className={`tab-content ${viewAccountsModalStatus || addcustomermodalstatus   ? 'blurred' : ''}`}>
             {/* <Table header={['Serial No.','Name','Accounts','Update','Delete']}/> */}
             <table className="table  table-bordered  table-striped">
                 <thead>
